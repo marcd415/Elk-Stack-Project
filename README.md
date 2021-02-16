@@ -29,53 +29,57 @@ Integrating an ELK server allows users to easily monitor the vulnerable VMs for 
 - Metricbeat records metrics from your systems and services, e.g. CPU, Memory, etc.
 
 The configuration details of each machine may be found below.
-_Note: Use the [Markdown Table Generator](http://www.tablesgenerator.com/markdown_tables) to add/remove values from the table_.
-
-| Name     |     Function    | IP Address | Operating System |
-|----------|-----------------|------------|------------------|
-| Jump Box | Gateway         | 10.0.0.1   | Linux            |
-| Web-1    | DVWA Containers |            |                  |
-| Web-2    | DVWA Containers |            |                  |
-| Web-3    | DVWA Containers |            |                  |
+| Name                 | Function           | IP Address | Operation System |
+|----------------------|--------------------|------------|------------------|
+| Jump-Box-Provisioner | Gateway            | 10.0.0.4   | Linux            |
+| Web-1                | DVWA Container     | 10.0.0.5   | Linux            |
+| Web-2                | DVWA Container     | 10.0.0.6   | Linux            |
+| Web-3                | DVWA Container     | 10.0.0.7   | Linux            |
+| ELK-VM-1             | Monitoring/Logging | 10.1.0.4   | Linux            |
 
 ### Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
-Only the _____ machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
-- _TODO: Add whitelisted IP addresses_
+Only the Jump Box Provisioner machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
+- My IP: 172.90.6.225
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Machines within the network can only be accessed by the Jump Box Provisioner VM.
+- My personal machine, 172.90.6.225, can access the ELK VM through port 5601.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name                 | Publicly Accessible | Allowed IP Address |
+|----------------------|---------------------|--------------------|
+| Jump-Box-Provisioner | Yes                 | 172.90.6.225       |
+| Web-1                | No                  | 10.0.0.4           |
+| Web-2                | No                  | 10.0.0.4           |
+| Web-3                | No                  | 10.0.0.4           |
+| ELK-VM-1             | No                  | 172.90.6.225       |
 
 ### Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+- Ansible is free and easy to use, agentless, playbooks are written in YAML and can be found in the Ansible Galaxy. 
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Installs Docker
+- Installs Python
+- Creates Elk container
+- Specificies open ports
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![](Images/ElkConfig.PNG)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- Web 1 - 10.0.0.5
+- Web 2 - 10.0.0.6
+- Web 3 - 10.0.0.7 
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- Filbeat and Metricbeat
 
 These Beats allow us to collect the following information from each machine:
 - _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
